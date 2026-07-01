@@ -73,7 +73,7 @@ function clipCardHTML(clip){
       <div class="clip-title">${escapeHTML(clip.title)}</div>
       <div class="clip-skin">${escapeHTML(clip.skin || "Default Skin")}</div>
       <div class="clip-meta">
-        <span class="clip-owner"><span class="avatar"></span>${escapeHTML(clip.owner)}</span>
+        <span class="clip-owner">${escapeHTML(clip.owner)}</span>
         <span class="clip-stats">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
           ${formatViews(clip.views||0)}
