@@ -105,9 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setCount(id, value){
   const el = document.getElementById(id);
-  if (el) el.setAttribute("data-count", value);
+  if (el) {
+    el.setAttribute("data-count", value);
+    animateCount(el);
+  }
 }
-
 function animateCount(el){
   const target = parseInt(el.getAttribute("data-count"), 10) || 0;
   const duration = 1400;
