@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Browse Clips</title>
+<meta name="description" content="Search and filter Mobile Legends clips by hero, skin, owner, and more. Preview, download, or copy the Drive link instantly.">
+<link rel="icon" href="assets/Logo.png" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/clips.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/LOGO FRAME VII.png" alt="MLCLIPS" class="brand-logo">
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="clips.html" class="active">Browse Clips</a>
+    <a href="about.html">About</a>
+    <a href="admin.html">Admin</a>
+  </div>
+  <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="clips-header">
+  <div class="container">
+    <span class="eyebrow">Clip library</span>
+    <h1>Browse Clips</h1>
+    <p>Search, filter by hero, and sort the entire library. Click any card to preview.</p>
+
+    <div class="search-wrap">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="search-input" placeholder="Search by title, owner, hero, skin, or description..." autocomplete="off">
+        <button class="clear-btn" id="search-clear" aria-label="Clear search">✕</button>
+      </div>
+      <ul class="suggestions" id="search-suggestions"></ul>
+    </div>
+
+    <div class="filter-label">Filters</div>
+    <div class="hero-filters" id="all-filters"></div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="toolbar">
+    <span class="result-count" id="result-count">Loading clips...</span>
+    <div class="sort-wrap">
+      <label for="sort-select">Sort by</label>
+      <select id="sort-select" class="sort-select">
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+        <option value="views">Most Viewed</option>
+        <option value="az">A–Z</option>
+        <option value="za">Z–A</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="clips-grid" id="clips-grid"></div>
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-brand"><span class="mark"><img src="assets/Logo.png" alt="MLCLIPS"></span>Frame VII</a>
+      <p>An exclusive Mobile Legends clip library for Frame VII, an editing group dedicated to creating high-quality gaming content. This platform is built exclusively for Frame VII members to organize, preview, and access gameplay clips for editing. Frame VII is an independent editing group and is not affiliated with or endorsed by Moonton.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="index.html">Home</a>
+        <a href="clips.html">Browse Clips</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Account</h4>
+        <a href="admin.html">Admin Login</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Frame VII. Built for Frame VII editors.</div>
+</footer>
+
+<script src="js/firebase.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/clips.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

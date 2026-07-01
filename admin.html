@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Admin Frame VII</title>
+<link rel="icon" href="assets/Logo.png" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="admin-body">
+
+<!-- ============ LOGIN ============ -->
+<div class="login-screen" id="login-screen">
+  <a href="index.html" class="login-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    Back to site
+  </a>
+  <div class="login-card">
+    <div class="mark"><img src="assets/Logo.png" alt="Frame VII"></div>
+    <h1>Admin Access</h1>
+    <p class="sub">Sign in to manage the Frame VII clip library.</p>
+    <div class="login-error" id="login-error"></div>
+    <form id="login-form">
+      <div class="field">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" placeholder="Enter Email" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ DASHBOARD ============ -->
+<div class="admin-shell" id="admin-dashboard" style="display:none;">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <a href="index.html" class="nav-brand" style="display:flex;align-items:center;gap:.6rem;font-family:var(--f-display);font-weight:700;font-size:1.1rem;">
+      <span style="width:28px;height:28px;display:flex;align-items:center;justify-content:center;"><img src="assets/Logo.png" alt="" style="width:100%;height:100%;object-fit:contain;"></span>
+      Frame VII
+    </a>
+
+    <div class="sidebar-section-label">Navigation</div>
+    <nav class="admin-nav" id="admin-nav">
+      <a href="#" data-view="dashboard" class="active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+        Dashboard
+      </a>
+      <a href="#" data-view="upload">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+        Upload Clip
+      </a>
+      <a href="#" data-view="manage">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+        Manage Clips
+        <span class="nav-count" id="nav-count">0</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-section-label">Library</div>
+    <nav class="admin-nav">
+      <a href="#" data-view="manage" data-filter="all">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        All Clips
+        <span class="nav-count" id="nav-all-count">0</span>
+      </a>
+      <a href="#" data-view="manage" data-filter="Entrance Animation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Entrances
+        <span class="nav-count" id="nav-entrance-count">0</span>
+      </a>
+      <a href="#" data-view="manage" data-filter="Clip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        Clips
+        <span class="nav-count" id="nav-clip-count">0</span>
+      </a>
+    </nav>
+
+    <button class="admin-logout" id="logout-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+      Log Out
+    </button>
+  </aside>
+
+  <!-- Main -->
+  <div class="admin-main">
+
+    <!-- Topbar -->
+    <div class="admin-topbar">
+      <div class="admin-topbar-left">
+        <div>
+          <h1 id="topbar-title">Dashboard</h1>
+          <p id="topbar-sub">Overview of your clip library</p>
+        </div>
+        <span class="topbar-badge" id="topbar-badge" style="display:none;"></span>
+      </div>
+      <a href="clips.html" style="display:inline-flex;align-items:center;gap:.45rem;font-size:.82rem;font-weight:600;color:var(--text-secondary);padding:.5rem 1rem;border:1px solid var(--line-bright);border-radius:999px;transition:all var(--t-fast);" onmouseover="this.style.color='#fff';this.style.borderColor='var(--red-dim)'" onmouseout="this.style.color='var(--text-secondary)';this.style.borderColor='var(--line-bright)'">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
+        View Site
+      </a>
+    </div>
+
+    <!-- Views -->
+    <div class="admin-content">
+
+      <!-- ======== DASHBOARD VIEW ======== -->
+      <div id="view-dashboard">
+        <div class="admin-stats">
+          <div class="astat">
+            <div class="top"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div></div>
+            <div class="num" id="astat-clips">0</div><div class="label">Total Clips</div>
+          </div>
+          <div class="astat">
+            <div class="top"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg></div></div>
+            <div class="num" id="astat-views">0</div><div class="label">Total Views</div>
+          </div>
+          <div class="astat">
+            <div class="top"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg></div></div>
+            <div class="num" id="astat-downloads">0</div><div class="label">Total Downloads</div>
+          </div>
+          <div class="astat">
+            <div class="top"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div></div>
+            <div class="num" id="astat-heroes">0</div><div class="label">Heroes Featured</div>
+          </div>
+        </div>
+
+        <div class="admin-panel">
+          <div class="admin-panel-head">
+            <div><h3>Recent Uploads</h3><p class="section-label" style="margin-top:.3rem;">Latest additions to the library</p></div>
+          </div>
+          <div class="recent-strip" id="recent-uploads-list">
+            <div class="table-empty"><p>No clips yet.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======== UPLOAD VIEW ======== -->
+      <div id="view-upload" style="display:none;">
+        <div class="admin-panel">
+          <div class="admin-panel-head">
+            <div>
+              <h3 id="upload-form-title">Upload New Clip</h3>
+              <p class="section-label" style="margin-top:.3rem;" id="upload-form-sub">Add a new clip — saved to the library</p>
+            </div>
+          </div>
+
+          <form id="upload-form">
+            <!-- VIDEO SOURCE -->
+            <div class="upload-section">
+              <p class="section-label" style="margin-bottom:1rem;">Video Source</p>
+
+              <div class="drive-converter">
+                <div class="drive-converter-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  Google Drive Link Converter
+                </div>
+                <div class="drive-input-wrap">
+                  <input type="text" id="f-drive-url" placeholder="https://drive.google.com/file/d/…  or paste the file ID directly" autocomplete="off">
+                </div>
+                <div class="drive-id-display" id="drive-id-display">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                  Extracted ID: <span class="id-val" id="drive-id-val"></span>
+                </div>
+              </div>
+
+              <div class="drop-zone" id="drop-zone">
+                <input type="file" accept="video/*" id="f-file-input">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M16 2l-4-4-4 4"/><path d="M12 2v6"/><path d="M7 12l5 5 5-5"/></svg>
+                <p>Drop video file here or click to browse</p>
+                <span>MP4, MOV, WebM (use Google Drive for permanent storage)</span>
+                <img class="drop-zone-preview" id="drop-preview" alt="preview">
+              </div>
+            </div>
+
+            <!-- CLIP DETAILS -->
+            <div class="upload-section">
+              <p class="section-label" style="margin-bottom:1rem;">Clip Details</p>
+
+              <div style="margin-bottom:1rem;">
+                <label style="font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:.5rem;">Category</label>
+                <div class="category-toggle">
+                  <button type="button" class="cat-btn" data-cat="Entrance Animation">
+                    <span class="dot"></span> Entrance Animation
+                  </button>
+                  <button type="button" class="cat-btn active" data-cat="Clip">
+                    <span class="dot"></span> Clip
+                  </button>
+                </div>
+                <input type="hidden" id="f-category" value="Clip">
+              </div>
+
+              <div class="form-grid" style="margin-bottom:1rem;">
+                <div class="form-field">
+                  <label for="f-title">Clip Title <span style="color:var(--red-bright)">*</span></label>
+                  <input type="text" id="f-title" placeholder="e.g. Fanny Skylark Clips" required>
+                </div>
+              </div>
+
+              <div class="form-grid cols2" style="margin-bottom:1rem;">
+                <div class="form-field">
+                  <label for="f-skin">Skin Used <span style="color:var(--red-bright)">*</span></label>
+                  <input type="text" id="f-skin" placeholder="e.g. Skylark">
+                </div>
+                <div class="form-field">
+                  <label for="f-owner">Owner <span style="color:var(--red-bright)">*</span></label>
+                  <input type="text" id="f-owner" placeholder="e.g. Yugen" required>
+                </div>
+              </div>
+
+              <div class="form-grid cols2" style="margin-bottom:1rem;">
+                <div class="form-field">
+                  <label for="f-hero">Hero <span style="color:var(--red-bright)">*</span></label>
+                  <input type="text" id="f-hero" list="hero-suggestions" placeholder="e.g. Fanny" required autocomplete="off">
+                  <datalist id="hero-suggestions"></datalist>
+                </div>
+                <div class="form-field">
+                  <label for="f-duration">Duration</label>
+                  <input type="text" id="f-duration" placeholder="e.g. 0:42">
+                </div>
+              </div>
+
+              <div class="form-grid" style="margin-bottom:0;">
+                <div class="form-field">
+                  <label for="f-description">Description</label>
+                  <textarea id="f-description" placeholder="Short description of the clip…" style="min-height:70px;resize:vertical;"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="upload-actions">
+              <button type="button" class="btn-cancel" id="cancel-edit-btn" style="display:none;">Cancel</button>
+              <button type="submit" class="btn-add" id="submit-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14m-7-7h14"/></svg>
+                Add to Library
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ======== MANAGE VIEW ======== -->
+      <div id="view-manage" style="display:none;">
+        <div class="admin-panel">
+          <div class="admin-panel-head" style="gap:1rem;flex-wrap:wrap;">
+            <div>
+              <h3>Manage Clips</h3>
+              <p class="section-label" style="margin-top:.3rem;" id="manage-count-label">Loading…</p>
+            </div>
+            <div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;" id="manage-filter-bar">
+              <button class="cat-btn active" data-mfilter="all" style="font-size:.76rem;padding:.35rem .8rem;">All</button>
+              <button class="cat-btn" data-mfilter="Clip" style="font-size:.76rem;padding:.35rem .8rem;">Clips</button>
+              <button class="cat-btn" data-mfilter="Entrance Animation" style="font-size:.76rem;padding:.35rem .8rem;">Entrances</button>
+            </div>
+          </div>
+          <div class="manage-table-wrap">
+            <table class="manage-table">
+              <thead>
+                <tr>
+                  <th>Thumb</th>
+                  <th>Title / Skin</th>
+                  <th>Category</th>
+                  <th>Hero</th>
+                  <th>Owner</th>
+                  <th>Duration</th>
+                  <th>Source</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="manage-table-body">
+                <tr><td colspan="8"><div class="table-empty"><p>Loading clips…</p></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /admin-main -->
+</div><!-- /admin-shell -->
+
+<script src="js/firebase.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
