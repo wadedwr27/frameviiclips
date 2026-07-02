@@ -5,10 +5,7 @@
    security. The password lives in this JS file, so anyone who
    opens dev tools or "view source" can read it. It stops casual
    link-sharing/leaking to non-members, but a determined person
-   could still bypass it. If you ever need real per-person
-   accounts (so you can revoke access individually), that would
-   need Firebase Auth accounts instead — just ask and this can
-   be upgraded later.
+   could still bypass it.
    ============================================================ */
 
 const SITE_ACCESS_PASSWORD = "frame.seven2026#"; // 🔑 shared member password
@@ -30,19 +27,19 @@ function lockSiteNow(){
 }
 
 function initAccessGate(){
-  const overlay = document.getElementById("access-gate");
+  const gate    = document.getElementById("access-gate");
   const content = document.getElementById("gated-content");
-  if (!overlay || !content) return;
+  if (!gate || !content) return;
 
   if (isSiteUnlocked()){
-    overlay.style.display = "none";
-    content.classList.remove("gate-locked");
+    gate.style.display    = "none";
+    content.style.display = "";
     return;
   }
 
-  // stay locked/blurred, show the password card
-  content.classList.add("gate-locked");
-  overlay.style.display = "flex";
+  // locked: show the full-page password screen, hide the real content
+  gate.style.display    = "flex";
+  content.style.display = "none";
 
   const form     = document.getElementById("access-form");
   const input    = document.getElementById("access-password");
@@ -54,7 +51,6 @@ function initAccessGate(){
     pwToggle.addEventListener("click", () => {
       const showing = input.type === "text";
       input.type = showing ? "password" : "text";
-      input.classList.toggle("access-pw-visible", !showing);
       pwToggle.classList.toggle("active", !showing);
       pwToggle.setAttribute("aria-label", showing ? "Show password" : "Hide password");
     });
@@ -64,8 +60,8 @@ function initAccessGate(){
     e.preventDefault();
     if (input.value === SITE_ACCESS_PASSWORD){
       unlockSite(remember ? remember.checked : true);
-      overlay.style.display = "none";
-      content.classList.remove("gate-locked");
+      gate.style.display    = "none";
+      content.style.display = "";
       err.classList.remove("show");
     } else {
       err.textContent = "Incorrect password.";
