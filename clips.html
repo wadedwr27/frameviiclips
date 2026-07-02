@@ -7,35 +7,43 @@
 <meta name="description" content="Search and filter Mobile Legends clips by hero, skin, owner, and more. Preview, download, or copy the Drive link instantly.">
 <link rel="icon" href="assets/Logo.png" type="image/svg+xml">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
 <link rel="stylesheet" href="css/clips.css">
 </head>
-<body>
+<body class="admin-body">
 
 <!-- ============ ACCESS GATE (members only) ============ -->
-<div class="access-gate-overlay" id="access-gate" style="display:none;">
-  <div class="access-gate-card">
+<div class="login-screen" id="access-gate" style="display:none;">
+  <a href="index.html" class="login-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    Back to site
+  </a>
+  <div class="login-card">
     <div class="mark"><img src="assets/Logo.png" alt="Frame VII"></div>
-    <h2>Members Only</h2>
-    <p>Enter the Frame VII access password to view the clip library.</p>
-    <div class="access-gate-error" id="access-error"></div>
+    <h1>Members Only</h1>
+    <p class="sub">Enter the Frame VII access password to view the clip library.</p>
+    <div class="login-error" id="access-error"></div>
     <form id="access-form">
-      <div class="access-pw-wrap">
-        <input type="password" id="access-password" placeholder="Access password" required autocomplete="off">
-        <button type="button" class="access-pw-toggle" id="access-pw-toggle" aria-label="Show password">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
-        </button>
+      <div class="field">
+        <label for="access-password">Access Password</label>
+        <div class="access-pw-wrap">
+          <input type="password" id="access-password" placeholder="••••••••" required autocomplete="off">
+          <button type="button" class="access-pw-toggle" id="access-pw-toggle" aria-label="Show password">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
       </div>
       <label class="access-remember-row">
         <input type="checkbox" id="access-remember" checked>
         Remember me on this device
       </label>
-      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Unlock</button>
+      <button type="submit" class="btn-primary" style="width:100%;justify-content:center;display:flex;align-items:center;">Unlock</button>
     </form>
   </div>
 </div>
 
 <!-- ============ GATED SITE CONTENT ============ -->
-<div id="gated-content" class="gate-locked">
+<div id="gated-content" style="display:none;">
 
 <nav class="site-nav">
   <a href="index.html" class="nav-brand">
