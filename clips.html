@@ -11,6 +11,32 @@
 </head>
 <body>
 
+<!-- ============ ACCESS GATE (members only) ============ -->
+<div class="access-gate-overlay" id="access-gate" style="display:none;">
+  <div class="access-gate-card">
+    <div class="mark"><img src="assets/Logo.png" alt="Frame VII"></div>
+    <h2>Members Only</h2>
+    <p>Enter the Frame VII access password to view the clip library.</p>
+    <div class="access-gate-error" id="access-error"></div>
+    <form id="access-form">
+      <div class="access-pw-wrap">
+        <input type="password" id="access-password" placeholder="Access password" required autocomplete="off">
+        <button type="button" class="access-pw-toggle" id="access-pw-toggle" aria-label="Show password">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <label class="access-remember-row">
+        <input type="checkbox" id="access-remember" checked>
+        Remember me on this device
+      </label>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Unlock</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ GATED SITE CONTENT ============ -->
+<div id="gated-content" class="gate-locked">
+
 <nav class="site-nav">
   <a href="index.html" class="nav-brand">
     <img src="assets/LOGO FRAME VII.png" alt="MLCLIPS" class="brand-logo">
@@ -84,6 +110,9 @@
   <div class="footer-bottom">© 2026 Frame VII. Built for Frame VII editors.</div>
 </footer>
 
+</div><!-- /gated-content -->
+
+<script src="js/access.js"></script>
 <script src="js/firebase.js"></script>
 <script src="js/modal.js"></script>
 <script src="js/clips.js"></script>
