@@ -299,52 +299,16 @@ body.modal-locked{ overflow:hidden; }
 }
 
 /* ============================================================
-   MLCLIPS — Access Gate (member password lock)
-   Append this block to the end of css/clips.css
+   MLCLIPS — Access Gate small additions
+   (Reuses .login-screen / .login-back / .login-card / .field /
+   .login-error already defined in css/admin.css — clips.html
+   now also links admin.css for this reason.)
    ============================================================ */
 
-.gate-locked{
-  filter: blur(22px);
-  pointer-events: none;
-  user-select: none;
-  transition: filter var(--t-med) var(--ease-out);
-}
-
-.access-gate-overlay{
-  position: fixed; inset: 0; z-index: 3000;
-  background: rgba(0,0,0,0.9);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  display: flex; align-items: center; justify-content: center;
-  padding: 2rem;
-}
-
-.access-gate-card{
-  width: 100%; max-width: 380px;
-  background: var(--bg-surface); border: 1px solid var(--line-bright);
-  border-radius: var(--radius-l); padding: 2.4rem 2.2rem; text-align: center;
-  box-shadow: 0 30px 70px rgba(0,0,0,.7);
-  animation: fadeSlideUp var(--t-slow) var(--ease-out) both;
-}
-.access-gate-card .mark{ width: 56px; height: 56px; margin: 0 auto 1rem; }
-.access-gate-card .mark img{ width: 100%; height: 100%; object-fit: contain; }
-.access-gate-card h2{ font-family: var(--f-display); font-size: 1.3rem; margin-bottom: .4rem; }
-.access-gate-card p{ color: var(--text-muted); font-size: .86rem; margin-bottom: 1.4rem; }
-
-.access-pw-wrap{ position: relative; margin-bottom: .9rem; }
-.access-gate-card input[type=password],
-.access-gate-card input[type=text].access-pw-visible{
-  width: 100%; background: var(--bg-elevated); border: 1px solid var(--line-bright);
-  color: #fff; padding: .75rem 2.6rem .75rem .9rem; border-radius: var(--radius-s); font-size: .92rem;
-  font-family: var(--f-body);
-  transition: border-color var(--t-fast), box-shadow var(--t-fast);
-}
-.access-gate-card input[type=password]:focus,
-.access-gate-card input[type=text].access-pw-visible:focus{
-  outline: none; border-color: var(--red); box-shadow: 0 0 0 3px var(--red-glow-soft);
-}
+.access-pw-wrap{ position: relative; }
+.access-pw-wrap input{ padding-right: 2.6rem !important; }
 .access-pw-toggle{
-  position: absolute; top: 50%; right: 10px; transform: translateY(-50%);
+  position: absolute; top: 50%; right: 8px; transform: translateY(-50%);
   width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
   color: var(--text-muted); border-radius: 6px;
   transition: color var(--t-fast), background var(--t-fast);
@@ -354,13 +318,7 @@ body.modal-locked{ overflow:hidden; }
 .access-pw-toggle.active{ color: var(--red-bright); }
 
 .access-remember-row{
-  display: flex; align-items: center; gap: .5rem; justify-content: center;
-  font-size: .8rem; color: var(--text-muted); margin-bottom: 1.1rem;
+  display: flex; align-items: center; gap: .5rem; justify-content: flex-start;
+  font-size: .8rem; color: var(--text-muted); margin: -.4rem 0 1.1rem;
 }
 .access-remember-row input[type=checkbox]{ accent-color: var(--red); width: 14px; height: 14px; }
-
-.access-gate-error{
-  background: rgba(225,29,46,.12); border: 1px solid var(--red-dim); color: var(--red-bright);
-  font-size: .8rem; padding: .6rem .8rem; border-radius: var(--radius-s); margin-bottom: 1rem; display: none;
-}
-.access-gate-error.show{ display: block; }
