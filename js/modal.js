@@ -121,7 +121,10 @@ function registerClipsForModal(clips){ __modalClips = clips; }
 function buildPreviewInnerHTML(clip){
   const fav = isFavorite(clip.id);
   return `
-    <div class="modal-video"><iframe src="${drivePreview(clip.driveId)}" allow="autoplay" allowfullscreen loading="lazy"></iframe></div>
+    <div class="modal-video"><iframe src="${drivePreview(clip.driveId)}" allow="autoplay" allowfullscreen></iframe></div>
+    <div class="modal-video-fallback">
+      Video not loading? <a href="https://drive.google.com/file/d/${clip.driveId}/view" target="_blank" rel="noopener">Open it directly in Google Drive</a>
+    </div>
     <div class="modal-body">
       <div class="modal-tags">
         ${categoryBadgeHTML(clip.category)}
