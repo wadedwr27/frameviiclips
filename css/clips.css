@@ -357,6 +357,7 @@ body.modal-locked{ overflow:hidden; }
 .chip.saved-chip.active{ background: var(--red); border-color: var(--red); }
 
 .nav-actions{ display: flex; align-items: center; gap: .7rem; }
+.nav-right{ display: flex; align-items: center; gap: .6rem; }
 .nav-saved-btn{
   display: inline-flex; align-items: center; gap: .5rem;
   font-family: var(--f-display); font-weight: 600; font-size: .86rem;
@@ -370,5 +371,13 @@ body.modal-locked{ overflow:hidden; }
 .nav-saved-btn.active svg{ fill: #fff; }
 @media (max-width: 980px){
   .nav-saved-btn span{ display: none; }
-  .nav-saved-btn{ padding: .5rem .7rem; }
+  .nav-saved-btn{ padding: .55rem .65rem; }
+  .chip-divider{ display: none; }
 }
+
+.modal-video-fallback{
+  text-align: center; font-size: .78rem; color: var(--text-muted);
+  padding: .6rem 1rem 0;
+}
+.modal-video-fallback a{ color: var(--red-bright); font-weight: 600; }
+.modal-video-fallback a:hover{ text-decoration: underline; }
