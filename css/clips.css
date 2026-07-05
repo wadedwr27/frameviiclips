@@ -143,7 +143,7 @@
 .play-overlay svg{ width:20px; height:20px; fill:#fff; margin-left:3px; }
 
 .duration-badge{
-  position:absolute; top:10px; right:10px; z-index:2;
+  position:absolute; bottom:10px; right:10px; z-index:2;
   background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
   font-family: var(--f-mono); font-size:.72rem; padding:.25rem .55rem; border-radius:5px;
   color:#fff; letter-spacing:.02em;
@@ -175,14 +175,11 @@
   width:32px; height:32px; border-radius:50%;
   background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
   display:flex; align-items:center; justify-content:center;
-  opacity:0; transform: translateY(-6px);
-  transition: opacity var(--t-fast), transform var(--t-fast), background var(--t-fast);
+  opacity:1; transition: background var(--t-fast);
 }
-.clip-card:hover .fav-btn{ opacity:1; transform:none; }
 .fav-btn svg{ width:15px; height:15px; stroke:#fff; fill:none; transition: fill var(--t-fast), stroke var(--t-fast); }
 .fav-btn.active svg{ fill: var(--red); stroke: var(--red); }
 .fav-btn:hover{ background: rgba(0,0,0,0.85); }
-.clip-thumb .fav-btn ~ .duration-badge{ top:48px; }
 
 /* ---------------- Empty / loading states ---------------- */
 .empty-state{
@@ -322,3 +319,56 @@ body.modal-locked{ overflow:hidden; }
   font-size: .8rem; color: var(--text-muted); margin: -.4rem 0 1.1rem;
 }
 .access-remember-row input[type=checkbox]{ accent-color: var(--red); width: 14px; height: 14px; }
+
+/* ============================================================
+   MLCLIPS — Clip Preview (non-overlay, full page, replaces
+   #browse-view when a card is clicked — fixes alignment/scroll
+   bugs that came from using a position:fixed overlay modal.)
+   ============================================================ */
+.preview-page{
+  min-height: 100vh;
+  padding: 110px 24px 60px;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 0%, var(--red-glow-soft), transparent 60%),
+    var(--bg-void);
+}
+.preview-card{
+  max-width: 980px; margin: 0 auto;
+  background: var(--bg-surface); border: 1px solid var(--line-bright);
+  border-radius: var(--radius-l); overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0,0,0,.6);
+  animation: fadeSlideUp var(--t-slow) var(--ease-out) both;
+}
+.preview-back-link{
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--f-display); font-weight: 600; font-size: .9rem;
+  color: var(--text-secondary); padding: .6rem 1rem; border-radius: 999px;
+  border: 1px solid var(--line-bright); background: var(--bg-surface);
+  margin-bottom: 1.5rem;
+  transition: color var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
+}
+.preview-back-link svg{ width: 16px; height: 16px; }
+.preview-back-link:hover{ color: #fff; border-color: var(--red-dim); transform: translateX(-2px); }
+@media (max-width: 560px){
+  .preview-page{ padding: 90px 16px 40px; }
+}
+
+.chip .heart-icon{ width: 14px; height: 14px; }
+.chip.saved-chip.active{ background: var(--red); border-color: var(--red); }
+
+.nav-actions{ display: flex; align-items: center; gap: .7rem; }
+.nav-saved-btn{
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--f-display); font-weight: 600; font-size: .86rem;
+  padding: .55rem 1.1rem; border-radius: 999px;
+  border: 1px solid var(--line-bright); background: var(--bg-surface); color: var(--text-secondary);
+  transition: all var(--t-fast) var(--ease-out);
+}
+.nav-saved-btn svg{ width: 15px; height: 15px; transition: fill var(--t-fast); }
+.nav-saved-btn:hover{ border-color: var(--red-dim); color: #fff; }
+.nav-saved-btn.active{ background: var(--red); border-color: var(--red); color: #fff; }
+.nav-saved-btn.active svg{ fill: #fff; }
+@media (max-width: 980px){
+  .nav-saved-btn span{ display: none; }
+  .nav-saved-btn{ padding: .5rem .7rem; }
+}
