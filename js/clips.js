@@ -7,6 +7,7 @@ let activeHero = "All";
 let activeCategory = "All";
 let activeSort = "newest";
 let activeQuery = "";
+let showSavedOnly = false;
 
 document.addEventListener("DOMContentLoaded", async () => {
   renderSkeletons();
@@ -21,10 +22,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   setupSearch();
   setupSort();
+  setupSavedButton();
   handleDeepLink();
 });
 
-/* ---------------- Combined filter row: Category chips + divider + Hero chips ---------------- */
+/* ---------------- Combined filter row: Category chips + divider + Hero chips + Saved ---------------- */
 function renderAllFilters(){
   const wrap = document.getElementById("all-filters");
   if (!wrap) return;
@@ -63,6 +65,26 @@ function renderAllFilters(){
       applyFilters();
     });
   });
+}
+
+/* ---------------- Saved button (top nav) ---------------- */
+function setupSavedButton(){
+  const btn = document.getElementById("nav-saved-btn");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    showSavedOnly = !showSavedOnly;
+    updateSavedButtonUI();
+    applyFilters();
+  });
+  updateSavedButtonUI();
+}
+
+function updateSavedButtonUI(){
+  const btn = document.getElementById("nav-saved-btn");
+  if (!btn) return;
+  btn.classList.toggle("active", showSavedOnly);
+  const svg = btn.querySelector("svg");
+  if (svg) svg.setAttribute("fill", showSavedOnly ? "currentColor" : "none");
 }
 
 /* ---------------- Search + suggestions ---------------- */
@@ -148,6 +170,10 @@ function applyFilters(){
     result = result.filter(c => (c.category || "Clip") === activeCategory);
   }
 
+  if (showSavedOnly){
+    result = result.filter(c => isFavorite(c.id));
+  }
+
   if (activeQuery){
     result = result.filter(c => {
       const haystack = [c.title, c.owner, c.hero, c.skin, c.description].join(" ").toLowerCase();
@@ -176,7 +202,7 @@ function renderGrid(clips){
       <div class="empty-state">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
         <h3>No clips found</h3>
-        <p>Try a different hero or search term.</p>
+        <p>${showSavedOnly ? "You haven't saved any clips yet." : "Try a different hero or search term."}</p>
       </div>`;
     return;
   }
